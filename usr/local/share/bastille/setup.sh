@@ -361,7 +361,7 @@ pass in proto tcp from any to any port ssh flags S/SA keep state
 EOF
     sysrc pf_enable=YES
     warn 1 "Bastille pf ruleset created. Please review '${bastille_pf_conf}' and enable pf using 'service pf start'."        
-elif [ -f "${bastille_pf_conf}" ] && grep -oq '## Bastille firewall configuration' "${bastille_pf_conf}"; then
+elif [ -f "${bastille_pf_conf}" ] && ! grep -oq '## Bastille firewall configuration' "${bastille_pf_conf}"; then
     local ext_if="$(netstat -rn | awk '/default/ {print $4}' | head -n1)"
     info 1 "\nConfiguring firewall..."
     info 2 "Using network interface: ${ext_if}"
